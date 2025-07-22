@@ -22,3 +22,29 @@ Benvenuto nel progetto **Analisi Calcio**, una dashboard interattiva realizzata 
    ```bash
    git clone https://github.com/AlessandroPietrini/analisi-calcio.git
    cd analisi-calcio
+
+2. Crea e attiva un ambiente virtuale (se non esiste già):
+
+bash
+Copia
+Modifica
+python3 -m venv venv
+source venv/bin/activate
+
+
+3. Installa le dipendenze:
+
+bash
+Copia
+Modifica
+pip install -r requirements.txt
+
+
+4. Avvia l'app Streamlit:
+
+bash
+Copia
+Modifica
+streamlit run app.py
+Apri il browser su: http://localhost:8501
+
