@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<title>Gestione Calcio - Frontend</title>
+</head>
+<body>
+  <h1>Salva Decisione Giocatore</h1>
+
+  <form id="decisionForm">
+    <label>Nome giocatore:<br /><input type="text" id="nome" required /></label><br /><br />
+    <label>Affaticamento (0-1):<br /><input type="number" id="fatigue" step="0.01" min="0" max="1" required /></label><br /><br />
+    <label>Fiducia (0-1):<br /><input type="number" id="trust" step="0.01" min="0" max="1" required /></label><br /><br />
+    <label>Decisione:<br />
+      <select id="decision" required>
+        <option value="RIPOSO">RIPOSO</option>
+        <option value="ROTATIONE">ROTATIONE</option>
+        <option value="TITOLARE">TITOLARE</option>
+      </select>
+    </label><br /><br />
+    <button type="submit">Salva Decisione</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const form = document.getElementById("decisionForm");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const data = {
+        nome_giocatore: document.getElementById("nome").value,
+        affaticamento: parseFloat(document.getElementById("fatigue").value),
+        fiducia: parseFloat(document.getElementById("trust").value),
+        decisione: document.getElementById("decision").value,
+      };
+
+      const response = await fetch("http://127.0.0.1:8000/decisione/salva", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const resJson = await response.json();
+        document.getElementById("message").textContent = `Decisione salvata con ID ${resJson.id}`;
+        form.reset();
+      } else {
+        document.getElementById("message").textContent = "Errore nel salvataggio";
+      }
+    });
+  </script>
+</body>
+</html>
